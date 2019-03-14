@@ -9,7 +9,7 @@
 public class Node <E> {
 
     private Object Element;
-    private Node<E> Next;
+    private Node<E> NextE;
 
     // Se crea un nuevo nodo
 
