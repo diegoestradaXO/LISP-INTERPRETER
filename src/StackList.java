@@ -44,7 +44,7 @@ public class StackList<E> implements Stack<E> {
             }
             nodeStack.setNext(myNode);
         }
-        //Coloca en el incio
+        //Coloca en el inicio
         else
             head = myNode;
     }
