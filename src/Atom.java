@@ -33,7 +33,7 @@ public class Atom {
         this.list = lista;
     }
 
-    public void copiarAtomo(Atom selectedAtom) {
+    public void copyAtom(Atom selectedAtom) {
         this.isList = selectedAtom.isList;
         this.isInt = selectedAtom.isInt;
         this.list = selectedAtom.list;
@@ -45,15 +45,15 @@ public class Atom {
 
     public Atom(String selectedAtom) {
         try {
-            Atom atomoConUnNumero = new Atom(Integer.parseInt(selectedAtom));
-            this.copiarAtomo(atomoConUnNumero);
+            Atom intAtom = new Atom(Integer.parseInt(selectedAtom));
+            this.copyAtom(intAtom);
             this.isInt = true;
-        } catch (NumberFormatException atomoNoEsNumero) {
+        } catch (NumberFormatException notIntegerAtom) {
             try {
-                Atom atomoConUnNumero = new Atom(Float.parseFloat(selectedAtom));
-                this.copiarAtomo(atomoConUnNumero);
+                Atom intAtom = new Atom(Float.parseFloat(selectedAtom));
+                this.copyAtom(intAtom);
                 this.isInt = true;
-            } catch (NumberFormatException atomoNoEsFlotante) {
+            } catch (NumberFormatException notFloatingAtom) {
                 this.atom = selectedAtom;
                 this.isInt = false;
                 this.isNull = false;

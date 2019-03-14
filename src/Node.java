@@ -1,9 +1,9 @@
-/**
- * Proyecto Lisp
- * @author Isabel Ortiz Naranjo 18176
- * @author Diego Estrada 18540
- * @author Michael Chan 18562
+/*Autores:
+ *Michael Chan 18562
+ *Diego Estrada 18540
+ *Isabel Ortiz 18176
  *
+ * Proyecto 1: Interprete Lisp en Java
  */
 
 public class Node <E> {
