@@ -33,8 +33,8 @@ public class Lista extends ArrayList implements List{
 		return this.size()==0;
 	}
 	//agregar al final
-	public void insert(Atomo atomo){
-			this.add(atomo);
+	public void insert(Atom atom){
+			this.add(atom);
 	}
 	//agregar en
 	public void addIn(int index, Atom selectedAtom){

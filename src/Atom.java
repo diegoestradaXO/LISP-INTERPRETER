@@ -1,16 +1,6 @@
-/**
- * Proyecto Lisp
- * @author Isabel Ortiz Naranjo 18176
- * @author Diego Estrada 18540
- * @author Michael Chan 18562
- *
- */
-/**
- * Proyecto 1: Interprete Lisp en Java
- */
-public class Atom {
+import java.util.List;
 
-    // Definicion de variables
+public class Atom{
     private boolean isList;
     private boolean isInt;
     public boolean isNull;
@@ -24,57 +14,45 @@ public class Atom {
     private boolean isBoolean;
 
 
-    /**
-     *  Constructor
-     */
     public Atom() {
         this.isNull = true;
         this.isList = false;
         this.isInt = false;
     }
 
-    /**
-     * Constructor
-     * @param selectedList Lista
-     */
-    public Atom(Lista selectedList) {
+    public Atom(Lista lista){
         this.isList = true;
         this.isNull = false;
         this.isInt = false;
 
-        this.list = selectedList;
+        this.list = lista;
     }
 
-    /**
-     * Constructor
-     * @param selectedAtom atomo seleccionado
-     */
-    public void copyAtom(Atom selectedAtom) {
-        this.isList = selectedAtom.isList;
-        this.isInt = selectedAtom.isInt;
-        this.list = selectedAtom.list;
-        this.atom = selectedAtom.atom;
-        this.description = selectedAtom.description;
-        this.integer = selectedAtom.integer;
-        this.isNull = selectedAtom.isNull;
+    public void copyAtom(Atom atomToCopy){
+        this.isList = atomToCopy.isList;
+        this.isInt = atomToCopy.isInt;
+        this.list = atomToCopy.list;
+        this.atom = atomToCopy.atom;
+        this.description = atomToCopy.description;
+        this.integer = atomToCopy.integer;
+        this.isNull = atomToCopy.isNull;
     }
 
-    /**
-     * Tratar de parsear un entero
-     * @param selectedAtom atomo seleccionado
-     */
-    public Atom(String selectedAtom) {
+    public Atom(String atom) {
+        /**
+         * Tratar de parsear un entero
+         */
         try {
-            Atom intAtom = new Atom(Integer.parseInt(selectedAtom));
-            this.copyAtom(intAtom);
+            Atom atomoConUnNumero = new Atom(Integer.parseInt(atom));
+            this.copyAtom(atomoConUnNumero);
             this.isInt = true;
-        } catch (NumberFormatException notIntegerAtom) {
+        } catch (NumberFormatException atomoNoEsNumero){
             try {
-                Atom intAtom = new Atom(Float.parseFloat(selectedAtom));
-                this.copyAtom(intAtom);
+                Atom atomoConUnNumero = new Atom(Float.parseFloat(atom));
+                this.copyAtom(atomoConUnNumero);
                 this.isInt = true;
-            } catch (NumberFormatException notFloatingAtom) {
-                this.atom = selectedAtom;
+            } catch (NumberFormatException atomoNoEsFlotante){
+                this.atom = atom;
                 this.isInt = false;
                 this.isNull = false;
                 this.isList = false;
@@ -83,44 +61,30 @@ public class Atom {
         }
     }
 
-    /**
-     * @param selectedAtom atomo seleccionado
-     * @param description descripcion
-     */
-    public Atom(String selectedAtom, String description) {
-        this.atom = selectedAtom;
-        this.description = description;
+    public Atom(String atomo, String desc) {
+        this.atom = atomo;
+        this.description = desc;
     }
 
-
-    /**
-     * @param number numero
-     */
     public Atom(int number) {
         this.integer = number;
         this.isInt = true;
         this.isNull = false;
         this.isList = false;
-        this.atom = Integer.toString(numero);
+        this.atom = Integer.toString(number);
     }
 
-    /**
-     * @param number numero
-     */
     public Atom(float number) {
         this.integer = number;
         this.isInt = true;
         this.isNull = false;
         this.isList = false;
 
-        this.atom = Float.toString(this.integer);
+        this.atom = Float.toString(this.getNum());
     }
 
-    /**
-     * @param isTrue
-     */
-    public Atom(boolean isTrue) {
-        if (isTrue) {
+    public Atom(boolean esTrue) {
+        if (esTrue){
             this.isBoolean = true;
             this.booleanVal = true;
             this.isInt = false;
@@ -134,75 +98,62 @@ public class Atom {
         }
     }
 
-    /**
-     * @return 0 o numero
-     */
-    public float getNumber(){
-        if (!this.esNumber)
+    public float getNum(){
+        if (!this.isInt)
             return 0;
 
-        return this.number;
+        return this.integer;
     }
 
-    /**
-     * @return Lista
-     */
-    public boolean InList(){
+    public boolean EsLista(){
         return this.isList;
     }
 
-    /**
-     * @return Nulo o Nil
-     */
     public String toString(){
-        if (this.esNulo)
+        if (this.isNull)
             return "NIL";
 
         if (this.EsLista())
-            return this.lista.toString();
+            return this.list.toString();
         else
-            return this.atomo;
+            return this.atom;
     }
 
     /**
-     * Se verifica si un atomo es igual a este
-     *
+     * Ve si un atomo es igual a este
+     * (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     * @author kmels
      */
-    public boolean equals(Object objet){
-        Atom otherAtom = (Atom) objet;
+    public boolean equals(Object objeto){
+        Atom otroAtomo = (Atom)objeto;
 
-        if ((this.isNull) && (otherAtom.isNull))
+        if ((this.isNull) && (otroAtomo.isNull))
             return true;
 
-        if ((this.isNumber) && (otherAtom.isNumber))
-            return this.number==otherAtom.number;
+        if ((this.isInt) && (otroAtomo.isInt))
+            return this.integer==otroAtomo.integer;
 
-        if ((this.isList) && (otherAtom.isList))
-            return this.list.equals(otherAtom.list);
+        if ((this.isList) && (otroAtomo.isList))
+            return this.list.equals(otroAtomo.list);
 
-        return this.atom.compareTo(otherAtom.atom)==0;
+        return this.atom.compareTo(otroAtomo.atom)==0;
     }
 
-    /**
-     * Verifica si el atomo, en caso de ser un string, comienza con un subString
-     * @param substring subString por el que se esta buscando
-     * @return true si este atomo comienza con subString
-     */
-    public boolean start(String substring){
+    public boolean startsWith(String substring){
         if ((substring.length()<=this.atom.length()) && (!this.isList)){
             return this.atom.substring(0, substring.length()).compareTo(substring)==0;
         }
+
         return false;
     }
 
-    /**
-     * Metodo que verifica si este atomo es una lista con una operacion
-     * @return True si la este atomo es una lista con una operacion
-     *
-     */
-    public boolean ListWithO() {
-        if (this.IsList())
-            return (this.list.esOperacion);
+
+    // en lista con operacion
+    public boolean operationWithList() {
+        if (this.EsLista())
+            return (this.list.isOperation);
+
         return false;
     }
 
@@ -210,32 +161,30 @@ public class Atom {
      * Metodo que verifica si este atomo es un numero
      */
     public boolean isNumber(){
-        return this.isNumber();
+        return this.isInt;
     }
 
-    /**
-     * Ve si el atomo, en caso de ser un string, termina con un subString
-     * @param subString subString que se esta buscando
-     * @return true si este atomo termina con subString
-     * Metodo que verifica si este es un numero entero
-     */
-    public boolean isNumber() {
-        if (!this.isNumber)
+    public boolean isInt() {
+        if (!this.isInt)
             return false;
 
+        /**
+         * Si es numero, puede ser flotante o entero
+         */
+
         try {
-            int number = Integer.parseInt(this.atom);
+            int numero = Integer.parseInt(this.atom);
             return true;
-        } catch (NumberFormatException noInt) {
+        } catch (NumberFormatException noEsEntero) {
             return false;
         }
     }
 
 
-    public String getTipo() {
+    public String getType() {
         if (this.isList)
             return "CONS";
-        else if (this.isNumber)
+        else if (this.isInt)
             return "SINGLE-FLOAT";
         else if (this.isNull)
             return "NULL";
