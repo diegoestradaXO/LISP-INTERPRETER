@@ -61,7 +61,7 @@ public class Prompt {
 
         } while (!read);
 
-        this.lastStatement = newStatement;
+        this.lastText = newStatement;
         this.lineNum++;
     }
 
@@ -71,7 +71,7 @@ public class Prompt {
     public boolean IngresoUnaLista(){
 
         // Evaluacion de la ultima expresion
-        StringTokenizer tokenizer = new StringTokenizer(this.lastStatement);
+        StringTokenizer tokenizer = new StringTokenizer(this.lastText);
 
         while (tokenizer.hasMoreTokens()) {
             System.out.println(tokenizer.nextToken());
@@ -88,7 +88,7 @@ public class Prompt {
     // Regresar la ultima expresion ingresada
 
     public String getLastStatement() {
-        return this.lastStatement;
+        return this.lastText;
     }
 
     private int countC(char search, String chain) {

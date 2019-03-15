@@ -44,7 +44,7 @@ public class StackList<E> implements Stack<E> {
             }
             nodeStack.setNext(myNode);
         }
-        //Coloca en el inicio
+        //Coloca en el incio
         else
             head = myNode;
     }
@@ -68,8 +68,6 @@ public class StackList<E> implements Stack<E> {
         return (E)nodeStack.value();
     }
 
-
-
     public E top() {//Funcion que muestra el nodo de arriba en el Stack
         Node<E> nodeStack = head;
         while (nodeStack.next() != null){
@@ -77,8 +75,6 @@ public class StackList<E> implements Stack<E> {
         }
         return (E)nodeStack.value();
     }
-
-
 
     public E getByIndex(int index) {//DEVOLVER el elemento por posicion
         if (index>=counter)
