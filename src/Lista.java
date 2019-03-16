@@ -1,93 +1,156 @@
+/**
+ * Proyecto Lisp
+ * @author Isabel Ortiz Naranjo 18176
+ * @author Diego Estrada 18540
+ * @author Michael Chan 18562
+ */
+
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Clase lista
+ */
 public class Lista extends ArrayList implements List{
-	public boolean isOperation;
+	/**
+	 * declaracion de la operacion
+	 */
+	public boolean esOperacion;
 
+	/**
+	 * Constructor super ()
+	 */
 	public Lista() {
 		super();
 	}
 
-	public Lista(List list){
+	/**
+	 * Constructor super ()
+	 * @param lista paremetro lista tipo List
+	 */
+	public Lista(List lista){
 		super();
 		
-		if (list == null){
-			list = new Lista();
+		if (lista == null){
+			lista = new Lista();
 		}
 		
 		int i = 0;
 		
-		while (i < list.size()){
-			this.add(list.get(i));
+		while (i < lista.size()){
+			this.add(lista.get(i));
 			i++;
 		}
 	}
-	
-	public Lista(Atom selectedAtom) {
+
+	/**
+	 * @param atomoIngresado parametro atomoIngresado de tipo Atomo
+	 */
+	public Lista(Atomo atomoIngresado) {
 		super();
 		
-		this.add(selectedAtom);
+		this.add(atomoIngresado);
 	}
-    //esta vacia
-	public boolean isEmpty(){
+
+	/**
+	 * @return retorna si esta vacia la lista
+	 */
+	public boolean estaVacia(){
+
 		return this.size()==0;
 	}
-	//agregar al final
-	public void insert(Atom atom){
-			this.add(atom);
+
+	/**
+	 * @param atomo atomo de tipo Atomo
+	 */
+	public void AgregarAlFinal(Atomo atomo){
+			this.add(atomo);
 	}
-	//agregar en
-	public void addIn(int index, Atom selectedAtom){
-		this.add(index, selectedAtom);
+
+	/**
+	 * Metodo para agregar en un indice indicado
+	 * @param indice indice de lo que se quiere agregar
+	 * @param atomo atomo de tipo Atomo
+	 */
+	public void AgregarEn(int indice, Atomo atomo){
+		this.add(indice, atomo);
 	}
-	
-	public boolean exist(Atom selectedAtom){
+
+	/**
+	 * Metodo para saber si existe un atomo
+	 * @param atomo atomo de tipo Atomo
+	 * @return retorna true o false, dependiendo de la existencia del atomo
+	 */
+	public boolean existe(Atomo atomo){
 		int i = 0;
 		
 		while (i <= this.size() -1){
-			if (this.get(i).equals(selectedAtom))
+			if (this.get(i).equals(atomo))
 				return true;
 			i++;
 		}
 		
 		return false;
 	}
-	
 
-	public Atom getOperation(){
-		if (!this.isOperation)
-			return new Atom();
+
+	/**
+	 * @return la operacion
+	 */
+	public Atomo getOperacion(){
+		if (!this.esOperacion)
+			return new Atomo();
 		
-		return (Atom)this.get(0);
+		return (Atomo)this.get(0);
 	}
 
-	public Atom getAtomIn(int i) {
-		return (Atom) this.get(i);
-	}
-	
-	private Atom removeAtomIn(int i) {
-		return (Atom) this.remove(i);
+	/**
+	 * @param i parametro entero
+	 * @return atomo
+	 */
+	public Atomo getAtomoEn(int i) {
+		return (Atomo) this.get(i);
 	}
 
-	public boolean equals(Object listObject){
-		Lista myList = (Lista)listObject;
+	/**
+	 *
+	 * @param i entero i
+	 * @return retorna el atomo
+	 */
+	private Atomo removeAtomoEn(int i) {
+		return (Atomo) this.remove(i);
+	}
+
+
+	/**
+	 * @param objetoLista de tipo Object
+	 * @return retorna un valor booleano, true o false
+	 */
+	public boolean equals(Object objetoLista){
+		Lista otraLista = (Lista)objetoLista;
 		
-		if (this.size()!=myList.size())
+		if (this.size()!=otraLista.size())
 			return false;
 		
-		int index = 0;
-		while (index < this.size()){
-			if (!this.get(index).equals(myList.get(index)))
+		int indice = 0;
+		while (indice < this.size()){
+			if (!this.get(indice).equals(otraLista.get(indice)))
 				return false;
 		}
 		
 		return true;
 	}
 
-	public Atom replaceAt(int i, Atom replacement) {
-		Atom atomToReplace = this.removeAtomIn(i);
-		this.addIn(i, replacement);
+	/**
+	 * Metodo para remplazar
+	 * @param i entero
+	 * @param atomoRemplazante atomo que va a remplazar
+	 * @return atomo remplazado
+	 */
+	public Atomo remplazarEn_Por(int i, Atomo atomoRemplazante) {
+		Atomo atomoRemplazado = this.removeAtomoEn(i);
+		this.AgregarEn(i, atomoRemplazante);
 		
-		return atomToReplace;
+		return atomoRemplazado;
 	}
 }
