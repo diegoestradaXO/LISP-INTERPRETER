@@ -12,6 +12,7 @@ import java.util.List;
  * Clase lista
  */
 public class Lista extends ArrayList implements List{
+
 	/**
 	 * declaracion de la operacion
 	 */
